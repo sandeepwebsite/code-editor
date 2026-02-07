@@ -67,6 +67,39 @@ tabs.forEach(t => t.addEventListener("click", () => {
   [htmlEditor, cssEditor, jsEditor].forEach(ed => ed.refresh());
 }));
 
+
+function run() {
+    const html = editors.html.getValue();
+    const css = editors.css.getValue();
+    const js = editors.js.getValue();
+
+    const previewFrame = document.getElementById("preview");
+    
+    const source = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                /* Force a clean, non-transparent background */
+                html, body { 
+                    background-color: #ffffff !important; 
+                    opacity: 1 !important;
+                    filter: none !important;
+                }
+                
+                /* This is your code from the CSS tab */
+                ${css}
+            </style>
+        </head>
+        <body>
+            ${html}
+            <script>${js}<\/script>
+        </body>
+        </html>
+    `;
+    previewFrame.srcdoc = source;
+}
+
 // Build output
 function buildAndRun() {
   const css = `<style>${cssEditor.getValue()}</style>`;
