@@ -1,0 +1,143 @@
+:root{
+  --bg:#0f1720;
+  --panel:#0b1220;
+  --muted:#9aa7b2;
+  --accent:#0ea5e9;
+  --accent-2:#2563eb;
+  --card:#0b1220;
+  --font-sans:"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font-family:var(--font-sans);
+  background:linear-gradient(180deg,#071021 0%, #071726 100%);
+  color:#e6eef6;
+}
+
+/* Topbar */
+.topbar{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;background:rgba(255,255,255,0.03);
+  border-bottom:1px solid rgba(255,255,255,0.03);}
+.brand{font-weight:700}
+.nav .btn{margin-left:8px}
+
+/* Buttons */
+.btn{background:transparent;border:1px solid rgba(255,255,255,0.06);
+  color:var(--muted);padding:6px 10px;border-radius:6px;
+  cursor:pointer;font-size:13px}
+.btn.small{padding:5px 8px;font-size:12px}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  border:none;color:white;font-weight:600;
+  box-shadow:0 6px 18px rgba(14,165,233,0.12)}
+
+/* Desktop container */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 6px 1fr; /* editor | divider | preview */
+  height: calc(100vh - 56px - 40px); /* adjust for header/footer */
+  max-width: 100%;
+}
+
+#divider {
+  background: rgba(255, 255, 255, 0.08);
+  cursor: col-resize;
+  height: 100%;
+}
+
+.editor-panel,.preview-panel{
+  background:var(--card);display:flex;flex-direction:column;
+  border:1px solid rgba(255,255,255,0.03);min-width:200px}
+
+
+/* Tabs */
+.tabs{display:flex;gap:6px;padding:12px;background:rgba(255,255,255,0.02)}
+.tab{background:transparent;border:none;color:var(--muted);
+  padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:600}
+.tab.active{color:white;background:rgba(255,255,255,0.03)}
+
+/* Editors */
+.editors{flex:1;display:flex;flex-direction:column;padding:0 12px 12px}
+.CodeMirror{flex:1;height:100%!important;border-radius:6px;
+  font-size:13px;background:var(--panel);color:#dbe9f8;}
+.hidden{display:none}
+.bottom-bar{display:flex;justify-content:space-between;align-items:center;
+  padding:10px 12px;border-top:1px solid rgba(255,255,255,0.02);
+  font-size:13px;color:var(--muted)}
+
+/* Switch */
+.switch{position:relative;display:inline-block;width:36px;height:20px}
+.switch input{display:none}
+.slider{position:absolute;inset:0;background:rgba(255,255,255,0.06);
+  border-radius:12px;transition:.18s}
+.slider:before{content:"";position:absolute;width:14px;height:14px;
+  left:3px;top:3px;background:#fff;border-radius:50%;transition:.18s}
+.switch input:checked + .slider{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.switch input:checked + .slider:before{transform:translateX(16px)}
+
+/* Preview */
+.preview-header{display:flex;justify-content:space-between;align-items:center;
+  padding:12px;border-bottom:1px solid rgba(255,255,255,0.02);
+  color:var(--muted);font-weight:600}
+.preview-panel iframe{flex:1;border:0;width:100%;height:100%;background:white}
+
+/* Footer */
+.footer{padding:12px 18px;color:var(--muted);font-size:13px;
+  border-top:1px solid rgba(255,255,255,0.02)}
+
+/* Mobile Mode */
+.mobile-tabs { display: none; }
+.mobile-tab-content { display: block; }
+.mobile-pane { display: none; }
+.mobile-pane.active { display: block; }
+.desktop-preview { display: block; }
+
+@media (max-width: 900px) {
+    .container { display:block; height:auto; }
+  #divider, .desktop-preview { display:none; }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .topbar .brand{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+  }
+  .nav .btn {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+  .footer{
+    text-align: center;
+  }
+  /* Mobile Tab Bar */
+  .mobile-tabs {
+    display:flex;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    background:rgba(11,18,32,0.95);
+  }
+  .mobile-tab {
+    flex:1;padding:10px;text-align:center;
+    background:none;border:none;color:var(--muted);
+    font-weight:600;cursor:pointer;
+  }
+  .mobile-tab.active { color:white;border-bottom:2px solid var(--accent); }
+
+  .editor-panel,.preview-panel {
+    border:none;min-height:300px;height:auto;
+  }
+  .preview-panel iframe { height:400px; }
+}
